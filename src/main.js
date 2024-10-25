@@ -11,7 +11,7 @@ let originalString = `先画花的茎
     left: 50%;
     margin-left: -3px;
     border-radius: 0 0 3px 3px;
-    transition: height 1s;
+    transition: height 1.25s;
 }
 .stem {
   height: 200px;
@@ -49,7 +49,7 @@ let originalString = `先画花的茎
     transform: rotate(-20deg);
     top: 55%;
     left: 28%;
-    transition: background 1s, box-shadow 1s 1s;
+    transition: background 1.25s, box-shadow 1.25s 1.25s;
     background: var(--dark-green);
     box-shadow: inset 5px 5px var(--light-green);
 }
@@ -58,7 +58,7 @@ let originalString = `先画花的茎
     transform: rotate(20deg);
     top: 45%;
     right: 28%;
-    transition: background 1s, box-shadow 1s 1s;
+    transition: background 1.25s, box-shadow 1.25s 1.25s;
     background: var(--dark-green);
     box-shadow: inset -5px 5px var(--light-green);
 }
@@ -68,7 +68,7 @@ let originalString = `先画花的茎
     height: 100px;
     width: 50px;
     border-radius: 10px 10px 20px 20px;
-    transition: background 1s;
+    transition: background 1.25s;
     background: var(--light-pink);
     top: 15%;
     left: 50%;
@@ -82,7 +82,7 @@ let originalString = `先画花的茎
 .petals>div:nth-child(2) {
     transform-origin: bottom right;
     border-radius: 0 35px 0 35px;
-    transition: background 1s, transform 1s 1s;
+    transition: background 1.25s, transform 1.25s 1.25s;
     background: var(--medium-pink);
     transform: rotate(-6deg);
     top: 15%;
@@ -91,7 +91,7 @@ let originalString = `先画花的茎
 .petals>div:nth-child(3) {
     transform-origin: bottom left;
     border-radius: 35px 0 35px 0;
-    transition: background 1s, transform 1s 1s;
+    transition: background 1.25s, transform 1.25s 1.25s;
     background: var(--medium-pink);
     transform: rotate(6deg);
     top: 15%;
@@ -100,7 +100,7 @@ let originalString = `先画花的茎
 .petals>div:nth-child(4) {
     transform-origin: bottom right;
     border-radius: 0 35px 0 35px;
-    transition: background 1s, transform 1s 1s;
+    transition: background 1.25s, transform 1.25s 1.25s;
     background: var(--dark-pink);
     transform: rotate(-18deg);
     top: 15%;
@@ -109,7 +109,7 @@ let originalString = `先画花的茎
 .petals>div:nth-child(5) {
     transform-origin: bottom left;
     border-radius: 35px 0 35px 0;
-    transition: background 1s, transform 1s 1s;
+    transition: background 1.25s, transform 1.25s 1.25s;
     background: var(--dark-pink);
     transform: rotate(18deg);
     top: 15%;
@@ -150,41 +150,40 @@ let writeIntoStyle = false;
 
 let n = 0;
 let step = () => {
-    html.innerHTML = showString;
-    style.innerHTML = styleString;
-    setTimeout(() => {
-        // 删去无用字符
-        if (originalString[n] === "\n") {
-            showString += "<br>";
-        } else if (originalString[n] === " ") {
-            showString += "&nbsp;";
-        } else {
-            showString += originalString[n];
-        }
+  html.innerHTML = showString;
+  style.innerHTML = styleString;
+  setTimeout(() => {
+    // 删去无用字符
+    if (originalString[n] === "\n") {
+      showString += "<br>";
+    } else if (originalString[n] === " ") {
+      showString += "&nbsp;";
+    } else {
+      showString += originalString[n];
+    }
 
-        // 判断何时输入到style中
-        if (originalString[n] === "#" || originalString[n] === '.') {
-            writeIntoStyle = true;
-        } else if (originalString[n] === "}") {
-            writeIntoStyle = false
-            tempString += "}\n"
-            styleString += tempString;
-            console.log(tempString)
-        }
-        if (writeIntoStyle === true) {
-            tempString += originalString[n];
-        }
+    // 判断何时输入到style中
+    if (originalString[n] === "#" || originalString[n] === ".") {
+      writeIntoStyle = true;
+    } else if (originalString[n] === "}") {
+      writeIntoStyle = false;
+      tempString += "}\n";
+      styleString += tempString;
+      console.log(tempString);
+    }
+    if (writeIntoStyle === true) {
+      tempString += originalString[n];
+    }
 
-        // 没病滚一下
-        window.scrollTo(0, 99999);
-        html.scrollTo(0, 99999);
-        // 判断到没到头
-        if (n < originalString.length) {
-            n += 1;
-            step();
-        }
-    }, 1)
-
-}
+    // 没病滚一下
+    window.scrollTo(0, 99999);
+    html.scrollTo(0, 99999);
+    // 判断到没到头
+    if (n < originalString.length) {
+      n += 1;
+      step();
+    }
+  }, 1);
+};
 
 step();
